@@ -14,7 +14,7 @@ CREATE TABLE users (
   first_name  VARCHAR(50) NOT NULL,
   last_name VARCHAR(50) NOT NULL,
   email VARCHAR(50) NOT NULL UNIQUE,
-  password VARCHAR(50) NOT NULL CHECK (length(password)>=6),
+  password VARCHAR(250) NOT NULL CHECK (length(password)>=6),
   role VARCHAR(20) DEFAULT 'user'
 );
 
@@ -33,11 +33,12 @@ INSERT INTO books (book_name, year, author) VALUES
 ('Think Python', 2015, 'Allen B. Downey'),
 ('JavaScript Patterns', 2010, 'Stoyan Stefanov');
 
-INSERT INTO users (first_name, last_name, email, password) VALUES
+INSERT INTO users (first_name, last_name, email, password ,role ) VALUES
 ('Abdalsamad', 'm', 'abdalsamad.y.m@gmail.com', '1434359', 'admin'),
 ('Haneen', 's', 'haneen@gmail.com', '1212133', 'user'),
-('John', 'Doe', 'johndoe@gmail.com', 'jo125353', 'user'),
-('Jane', 'Doete', 'jane@gmail.com', 'je85652', 'user');
+('Hanedddddddden', 's', 'haneeddddn@gmail.com', '121213ff3', 'user'),
+
+('John', 'Doe', 'johndoe@gmail.com', 'jo125353', 'user');
 
 INSERT INTO reserve (user_id, book_id, start_date, end_date) VALUES
 (1,1,'2018-01-05', '2018-02-15'),
