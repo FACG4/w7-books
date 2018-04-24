@@ -1,0 +1,76 @@
+
+
+body {
+  text-align: center;
+}
+
+label{
+  margin-right: 10px;
+}
+input{
+  margin-right: 20px;
+height: 30px;
+text-align: center
+}
+.add-book{
+  text-align: center;
+}
+
+h1 {
+  padding-bottom: 20px;
+  padding-top: 30px;
+  text-align: center;
+  font-size: 60px;
+  color:  #5b380b;
+  font-family: 'Lobster', cursive;
+}
+
+input[type=submit] {
+  font-size: 20px;
+  margin-top: 30px;
+  width: 130px;
+  height: 40px;
+  border: none;
+  background-color:  #9f6314;
+  font-weight:bold;
+}
+
+ul, li {
+  padding: 0;
+  margin: 0;
+}
+ul{
+list-style-type:none;
+}
+
+ul li {
+  padding-bottom: 20px;
+}
+
+span {
+  display: inline-block;
+width: 25%;
+margin-right: 50px;
+margin-top: 40px;
+}
+
+#reserveBook{
+  padding-top: 20px;
+margin-top: 20px;
+  padding-bottom: 30px;
+
+}
+ul li:first-child{
+  color: #5b380b;
+
+  font-weight: bold;
+  font-size: 23px;
+background-color: #f1c68e;
+}
+li:nth-child(odd) {
+  background-color: #fcf4e8
+
+}
+li:nth-child(even) {
+  background-color: #f9e8d2
+}
