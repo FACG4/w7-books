@@ -93,6 +93,14 @@ const hashPassword = (password, cb) => {
       }
     });
    };
+  const comparePasswords =(password , hashPassword, cb)=>{
+    bcrypt.compare(password,hashPassword,cb);
+  };
+  module.exports = {
+  comparePasswords,
+  hashPassword
+};
+
 
 
 
@@ -106,10 +114,9 @@ const  signUp=(req,res) =>{
     const users=querystring.parse(data);
     const{fname,lname,email ,password}=users;
 
- hashPassword(password,(err,hashedPassword) =>{
-  if (err){
-    console.error("Error in Hashing",err);
-  }else {
+
+
+
 
 
     insertuser.insertUsers(fname,lname,email ,hashedPassword, (err, result)=> {
@@ -126,43 +133,9 @@ const  signUp=(req,res) =>{
     });
 
 
-  }
-
- })
-
-
-
-
-
-
-
-})
-}
-
-
-//     hashPassword(password, (err,hashedPassword) =>
-//    console.log(hashedPassword)
-
-//  );
-
-
-
-
-  //   const passwordhashed= hashPassword(password,(err, result)=>{
-  //     if (err){
-  //       console.log("jjjj",result);
-  //     }else {
-  //       console.log("done");
-
-  //     }
-
-  //   }
-  // );
-  // console.log(p);
-
-
-
+  })
 
 
 
 module.exports = {handlePublic,handleInsert, handleBooklist, handleNotFound,signUp};
+};
