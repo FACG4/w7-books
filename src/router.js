@@ -6,7 +6,12 @@ const router = (req, res) => {
   const { url: endpoint } = req;
   if (endpoint === '/') {
     handler.handlePublic(res, path.join('public', 'login.html'));
-  } else if (endpoint.includes('public')) {
+  } 
+  else if (endpoint === '/redirect') {
+    handler.handlePublic(res, path.join('public', 'redirect.html'));
+
+  }
+  else if (endpoint.includes('public')) {
     handler.handlePublic(res, path.join('public','..',endpoint));
   } else if (endpoint === '/insert') {
     handler.handleInsert(req, res);
