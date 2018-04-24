@@ -21,9 +21,8 @@
       </label>
       <p id="emailError"> </p>
 
-      <label for="psw">
-        <b>Password</b>
-        <input id="password" type="password" placeholder="Enter Password" name="psw" required>
+      <label for="psw"><b>Password</b>
+      <input  id="password" type="password" placeholder="Enter Password" name="psw" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required>
       </label>
       <p id="passworderror"> </p>
 

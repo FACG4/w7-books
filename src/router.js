@@ -7,9 +7,7 @@ const router = (req, res) => {
   if (endpoint === '/') {
     handler.handlePublic(res, path.join('public', 'login.html'));
   } else if (endpoint.includes('public')) {
-    // handler.handlePublic(res, path.join('public', 'signUp.html'));
     handler.handlePublic(res, path.join('public','..',endpoint));
-
   } else if (endpoint === '/insert') {
     handler.handleInsert(req, res);
   } else if (endpoint === '/booksList') {
