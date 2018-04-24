@@ -1,4 +1,4 @@
-/* 
+/*
 
 body {
   text-align: center;
@@ -103,12 +103,13 @@ hr {
 button {
     background-color: #4CAF50;
     color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
+    padding: 12px 20px;
+    margin: 2px;
     border: none;
     cursor: pointer;
     width: 100%;
     opacity: 0.9;
+
 }
 
 button:hover {
