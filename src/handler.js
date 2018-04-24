@@ -3,6 +3,7 @@ const querystring = require('querystring');
 const path = require('path');
 const insertbooks = require('./database/queries/insertbooks');
 const booksList = require('./database/queries/reserve');
+const checkuser = require('./database/queries/checkuser');
 
 const contentType = {
   html: 'text/html',
