@@ -16,12 +16,26 @@ const router = (req, res) => {
   const { url: endpoint } = req;
   if (endpoint === '/') {
     handler.handlePublic(res, path.join('public', 'login.html'));
-  } else if (filesInFolder.includes(endpoint)) {
+
+  } else if (endpoint.includes('public')) {
+    console.log(endpoint);
+    
+    handler.handlePublic(res, path.join('public', 'signUp.html'));
+
+  }
+    else if (filesInFolder.includes(endpoint)) {
+      console.log('fffffffff',endpoint);
+      
     handler.handlePublic(res, path.join('public',endpoint));
   }  else if (endpoint === '/insert') {
     handler.handleInsert(req, res);
   } else if (endpoint === '/booksList') {
     handler.handleBooklist(req, res);
+  }
+  else if (endpoint === '/signUp'){
+
+    handler.signUp(req, res);
+
   } else {
     handler.handleNotFound(req, res);
   }

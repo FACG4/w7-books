@@ -3,6 +3,10 @@ const querystring = require('querystring');
 const path = require('path');
 const insertbooks = require('./database/queries/insertbooks');
 const booksList = require('./database/queries/reserve');
+const insertuser = require('./database/queries/insertuser');
+
+const bcrypt = require("bcryptjs");
+
 
 const contentType = {
   html: 'text/html',
@@ -31,6 +35,8 @@ const handlePublic = (res, endpoint) => {
     }
   });
 };
+
+
 
 const handleInsert = (req, res) => {
   let data = '';
@@ -72,4 +78,91 @@ const handleNotFound = (req, res) => {
   res.end('<h1>Page not found</h1>');
 };
 
-module.exports = {handlePublic,handleInsert, handleBooklist, handleNotFound};
+
+
+
+
+const hashPassword = (password, cb) => {
+  bcrypt.genSalt(10, function(err, salt) {
+     if(err) {
+       cb(err)
+      } else {
+      
+        bcrypt.hash(password, salt,cb)
+   
+      }
+    });
+   };
+
+
+
+const  signUp=(req,res) =>{
+  let data='';
+  req.on('data',(chunk)=>{
+    data += chunk;
+
+  });
+  req.on('end',()=>{
+    const users=querystring.parse(data);
+    const{fname,lname,email ,password}=users;
+
+ hashPassword(password,(err,hashedPassword) =>{
+  if (err){
+    console.error("Error in Hashing",err);
+  }else {
+    
+
+    insertuser.insertUsers(fname,lname,email ,hashedPassword, (err, result)=> {
+   
+      if (err) {
+        
+        res.writeHead(500, 'Content-Type: text/html');
+        res.end('<h1>Sorry, there was a problem adding that user</h1>');
+        console.log(err);
+      } else {
+        res.writeHead(200, 'Content-Type: text/html');
+        res.end('<h1>successfully added</h1>');
+      }
+    });
+
+    
+  }
+
+ })
+
+
+ 
+  
+
+
+
+})
+}
+
+
+//     hashPassword(password, (err,hashedPassword) =>
+//    console.log(hashedPassword)
+
+//  );
+
+
+
+
+  //   const passwordhashed= hashPassword(password,(err, result)=>{
+  //     if (err){
+  //       console.log("jjjj",result);
+  //     }else {
+  //       console.log("done");
+
+  //     }
+
+  //   }
+  // );
+  // console.log(p);
+  
+  
+
+
+
+
+module.exports = {handlePublic,handleInsert, handleBooklist, handleNotFound,signUp};
