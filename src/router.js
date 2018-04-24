@@ -15,7 +15,7 @@ const router = (req, res) => {
 
   const { url: endpoint } = req;
   if (endpoint === '/') {
-    handler.handlePublic(res, path.join('public', 'index.html'));
+    handler.handlePublic(res, path.join('public', 'login.html'));
   } else if (filesInFolder.includes(endpoint)) {
     handler.handlePublic(res, path.join('public',endpoint));
   }  else if (endpoint === '/insert') {
