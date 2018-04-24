@@ -19,12 +19,12 @@
       <hr>
 
       <label for="email"><b>Email</b>
-      <input  id="email" type="text" placeholder="Enter Email" name="email" required>
+      <input  id="email" type="email" placeholder="Enter Email" name="email" required>
       </label>
       <p id = "emailError"> </p>
 
       <label for="psw"><b>Password</b>
-      <input  id="password" type="password" placeholder="Enter Password" name="psw" required>
+      <input  id="password" type="password" placeholder="Enter Password" name="psw" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required>
       </label>
             <p id = "passworderror"> </p>
 

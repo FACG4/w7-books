@@ -6,7 +6,7 @@ const EmailError = document.getElementById('emailError');
 const passworderror = document.getElementById('passworderror');
 login.addEventListener('submit', (e) => {
   e.preventDefault();
-  var checkEmail => {
+  const checkEmail = function() {
     if (email.validity.typeMismatch){
       displayErr(EmailError ,"please enter a valid email")
       }else{
@@ -20,18 +20,35 @@ login.addEventListener('submit', (e) => {
     }
   }
 
-  function displayErr(errElem,errMes) {
-    errElem.innerText = errMes;
-
+  const checkPw = function(){
+  if (password.validity.patternMismatch) {
+    displayErr(
+      passworderror,
+      "Password must contain at least eight characters, including one letter and one number"
+    );
+  } else if (password.validity.valueMissing) {
+    displayErr(passworderror, "Please enter a password");
+  } else {
+    displayErr(passworderror, "");
+    return true;
   }
-      // const data = {
-  //   email:email.value,
-  //   password: password.value
-  // }
-// console.log(data);
+};
+function displayErr(errElem,errMes) {
+  errElem.innerText = errMes;
+
+}
+email.addEventListener("focusout", checkEmail);
+password.addEventListener("focusout", checkPw);
+
 });
 
 
+
+const data = {
+  email:email.value,
+  password: password.value
+}
+// console.log(data);
 
 
 // fetch('/login',(err,res)=>{

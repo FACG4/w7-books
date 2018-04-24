@@ -6,5 +6,5 @@ const host = process.env.HOSTNAME || 'localhost';
 
 const server = http.createServer(router);
 server.listen(port, () => {
-  console.log(`check our site  http://${host}:${port} `);
+  console.log(`check our site  http://${host}:${port}`);
 });
