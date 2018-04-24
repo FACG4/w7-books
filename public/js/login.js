@@ -6,10 +6,10 @@ const EmailError = document.getElementById('emailError');
 const passworderror = document.getElementById('passworderror');
 login.addEventListener('submit', (e) => {
   e.preventDefault();
-  var checkEmail => {
+  const checkEmail = function() {
     if (email.validity.typeMismatch){
       displayErr(EmailError ,"please enter a valid email")
-      }else{
+    }else{
         if (email.validity.valueMissing){
           displayErr(EmailError,"please Enter an email address")
         }else{
@@ -19,6 +19,28 @@ login.addEventListener('submit', (e) => {
 
     }
   }
+  const checkPassword = function(){
+    if (password.validity.patternMismatch){
+      displayErr(passworderror,"password must contain  egiht charachter , including one letter and one number")
+    }else if (password.validity.valueMissing) {
+      displayErr(passworderror ,"please enter password")
+
+
+
+    }else {
+      displayErr(passworderror,"")
+      return true;
+    }
+
+  }
+
+
+
+
+
+
+
+
 
   function displayErr(errElem,errMes) {
     errElem.innerText = errMes;
