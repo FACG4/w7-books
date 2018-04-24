@@ -3,8 +3,8 @@ const querystring = require('querystring');
 const path = require('path');
 const insertbooks = require('./database/queries/insertbooks');
 const booksList = require('./database/queries/reserve');
+const checkuser = require('./database/queries/checkuser');
 const insertuser = require('./database/queries/insertuser');
-
 const bcrypt = require("bcryptjs");
 
 
@@ -87,9 +87,9 @@ const hashPassword = (password, cb) => {
      if(err) {
        cb(err)
       } else {
-      
+
         bcrypt.hash(password, salt,cb)
-   
+
       }
     });
    };
@@ -110,12 +110,12 @@ const  signUp=(req,res) =>{
   if (err){
     console.error("Error in Hashing",err);
   }else {
-    
+
 
     insertuser.insertUsers(fname,lname,email ,hashedPassword, (err, result)=> {
-   
+
       if (err) {
-        
+
         res.writeHead(500, 'Content-Type: text/html');
         res.end('<h1>Sorry, there was a problem adding that user</h1>');
         console.log(err);
@@ -125,14 +125,14 @@ const  signUp=(req,res) =>{
       }
     });
 
-    
+
   }
 
  })
 
 
- 
-  
+
+
 
 
 
@@ -159,8 +159,8 @@ const  signUp=(req,res) =>{
   //   }
   // );
   // console.log(p);
-  
-  
+
+
 
 
 
