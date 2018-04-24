@@ -1,4 +1,3 @@
-
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -7,7 +6,6 @@ body {
   box-sizing: border-box
 }
 
-/* Full-width input fields */
 input[type=text],
 input[type=email],
 input[type=password] {
@@ -25,15 +23,15 @@ input[type=password]:focus {
   outline: none;
 }
 
+
 hr {
   border: 1px solid #f1f1f1;
   margin-bottom: 25px;
 }
 
-/* Set a style for all buttons */
 
 button {
-  background-color: #4CAF50;
+  background-color:#0000FF;
   color: white;
   padding: 12px 20px;
   margin: 2px;
@@ -42,24 +40,26 @@ button {
   width: 50%;
   text-align: center;
   margin: 0 auto;
-  opacity: 0.9;
+  display: flex; 
+  justify-content: center; 
+  font-weight: bold
 }
 
 button:hover {
-  opacity: 1;
+  opacity: 0.8;
+  
 }
 
-/* Add padding to container elements */
 
 .container {
   padding: 16px;
 }
 
-/* Change styles for cancel button and signup button on extra small screens */
 
 @media screen and (max-width: 300px) {
-  .signupbtn {
+ button {
     width: 100%;
+
   }
 }
 
@@ -74,3 +74,41 @@ form {
 .title {
   text-align: center
 }
+
+
+  
+  /* .isa_success {
+    font-size: 30px;
+    text-align: center;
+    margin: 10px 0px;
+    padding:12px;
+      color: #4F8A10;
+      background-color: #DFF2BF;
+  }
+  
+  .isa_success i {
+      margin:10px 22px;
+      font-size:2em;
+      vertical-align:middle;
+  } */
+
+ .isa_success, .isa_error {
+    margin: 10px 0px;
+    padding:12px;
+     
+    }
+  
+
+    .isa_error {
+        color: #D8000C;
+        background-color: #FFD2D2;
+        text-align: center
+    }
+    
+    .isa_success i,  .isa_error i {
+        margin:10px 22px;
+        font-size:2em;
+        vertical-align:middle;
+    }
+
+    

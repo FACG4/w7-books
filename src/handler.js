@@ -120,9 +120,12 @@ const  signUp=(req,res) =>{
         res.end('<h1>Sorry, there was a problem adding that user</h1>');
         console.log(err);
       } else {
-        res.writeHead(200, 'Content-Type: text/html');
-        res.end('<h1>successfully added</h1>');
-      }
+
+          res.writeHead(302, {
+          Location: '/redirect' 
+           });
+          res.end();
+     }
     });
 
 
@@ -139,26 +142,6 @@ const  signUp=(req,res) =>{
 })
 }
 
-
-//     hashPassword(password, (err,hashedPassword) =>
-//    console.log(hashedPassword)
-
-//  );
-
-
-
-
-  //   const passwordhashed= hashPassword(password,(err, result)=>{
-  //     if (err){
-  //       console.log("jjjj",result);
-  //     }else {
-  //       console.log("done");
-
-  //     }
-
-  //   }
-  // );
-  // console.log(p);
 
 
 
