@@ -1,25 +1,24 @@
+
 const db_connection = require('../db_connection.js');
 const bcrypt = require('bcryptjs');
 
 // const dataUser = dataUser.email;
 
-const checkuser = (dataUser,cb) => {
+const checkuser = (email,password,cb) => {
   const sql = {
               text:`SELECT * FROM users WHERE email=$1`,
-              values : [dataUser]
+              values : [email]
             };
 
   db_connection.query(sql,(err,result) => {
-    console.log(result.rows);
 
     if(err){
       return cb(err);
     }else{
-      const passwordDB = result.rows[0].password;
-      const passwordUser = dataUser.password;
-      const comparePassword = bcrypt.compareSync(passwordUser,passwordDB);
-      cb(null,passwordCom, result.rows);
+cb(null,result.rows)
+    
     }
+
   })
 }
 

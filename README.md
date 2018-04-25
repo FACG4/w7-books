@@ -15,8 +15,7 @@ First together we worked on the architecture of the code , then we chose the dat
 
 User can create accont in the website by enter his first name , last name ,password and email  then , using his email and password to log in and redirect it into another page that view available books list to the user and he can enter the book name , author of book and the date of deploy to insert it
   
-
-
+_____________________________________________________________________
 ```
 CREATE DATABASE [db_name];
    CREATE USER [user_name] WITH SUPERUSER PASSWORD ['password'];

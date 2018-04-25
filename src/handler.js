@@ -5,7 +5,9 @@ const insertbooks = require('./database/queries/insertbooks');
 const booksList = require('./database/queries/reserve');
 const checkuser = require('./database/queries/checkuser');
 const insertuser = require('./database/queries/insertuser');
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
+const cookie = require('cookie');
 
 
 const contentType = {
@@ -35,35 +37,6 @@ const handlePublic = (res, endpoint) => {
     }
   });
 };
-
-const handlerUser = (req, res) => {
-  // console.log(req);
-  let dataUser = '';
-  req.on('data',(chunk) =>{
-    dataUser += chunk;
-  });
-  req.on('end',()=>{
-    const users = querystring.parse(dataUser);
-    const {email:email,password: password} = users;
-    checkuser.checkuser(users,(err,result)=> {
-      if(err){
-        res.writeHead(500, 'Content-Type: text/html');
-        res.end('<h1>Sorry, there was a problem of email or password</h1>');
-        console.log(err);
-      }else
-      console.log("ajjaks");{
-        res.writeHead(
-        302,{
-          'Location': '/',
-          'Set-Cookie': 'logged_in=true; HttpOnly; Max-Age=86400'
-        }
-      );
-
-       res.writeHead(302,{Location:'/userPanel'});
-      }
-    })
-  })
-}
 
 
 
@@ -125,6 +98,72 @@ const hashPassword = (password, cb) => {
 
 
 
+
+   const handlerUser = (req, res) => {
+    let data = '';
+    req.on('data', (chunk) => {
+      data += chunk;
+    });
+    req.on('end', () => {
+      const users = querystring.parse(data);
+      const {email,psw} = users;
+      
+      checkuser.checkuser(email,psw, (err, result)=> {
+             
+        if (err) {
+          res.writeHead(500, 'Content-Type: text/html');
+          res.end('<h1>Sorry, there was a problem adding that book</h1>');
+         } else if (result.length === 0)
+         {
+           
+          res.end('the user not registerd');
+
+           }
+           else
+           {
+
+            const userData = {
+              userId: result[0].id,
+              username: ` first name ${result[0].first_name} last name ${result[0].last_name} `
+            }
+            const token = jwt.sign(userData,'inass')
+            bcrypt.compare(psw,result[0].password,(err,resBoolean)=>{
+              
+              if (!resBoolean) {
+                res.writeHead(500, 'Content-Type: text/html');
+                res.end('<h1>error in your password</h1>');
+              }else{
+                
+             res.writeHead(302, {
+              Location: '/userPanel' ,
+             'Set-Cookie': `token=${token}; httpOnly`
+               });
+              res.end();
+
+          
+
+              }
+              
+            }
+          );
+           }
+      
+        
+      });
+    });
+  }
+
+
+
+  const logout = (req, res) => {
+    res.writeHead(302, {
+      Location: '/',
+      'Set-Cookie': `token=0; Max-Age=0`,
+    });
+    res.end();
+  };
+
+  
 const  signUp=(req,res) =>{
   let data='';
   req.on('data',(chunk)=>{
@@ -151,7 +190,7 @@ const  signUp=(req,res) =>{
       } else {
 
           res.writeHead(302, {
-          Location: '/redirect' 
+          Location: '/' 
            });
           res.end();
      }
@@ -177,4 +216,4 @@ const  signUp=(req,res) =>{
 
 
 
-module.exports = {handlePublic,handleInsert, handleBooklist, handleNotFound,signUp,handlerUser};
+module.exports = {handlePublic,handleInsert, handleBooklist, logout,handleNotFound,signUp,handlerUser};
