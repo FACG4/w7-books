@@ -2,18 +2,19 @@
 # books
 ![alt text](https://dailygenius.com/wp-content/uploads/2014/06/stack_of_books.jpg)
 
-What?
+## What?
 
-Our website that give you ability to reservation books thats is available
+Our website that give you ability to reservation books thats is available, but we dont finsh it 
 
-How?
+
+## How?
 
 First together we worked on the architecture of the code , then we chose the data that we will use it in our website , then we did a special function for use this data.
 
-How to use ?
+## How to use ?
 
-our site view available books list to the user ,
-user can enter the book name , author of book and the date of deploy
+User can create accont in the website by enter his first name , last name ,password and email  then , using his email and password to log in and redirect it into another page that view available books list to the user and he can enter the book name , author of book and the date of deploy to insert it
+  
 
 
 ```
@@ -28,6 +29,8 @@ Next open psql/pgcli in terminal and connect to your test database: \c [test_dat
 ```
 
 Next you will run the db_build.sql file to create the schema and populate your test database with data: \i [full_path_to_db_build.sql]
+
+
 
 
 
