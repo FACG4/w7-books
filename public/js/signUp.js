@@ -45,6 +45,7 @@ form.addEventListener('submit',function(event){
     
   }
   else{
+    message.textContent="";
     select('#isa_error').classList.remove("isa_error");
   }
 
