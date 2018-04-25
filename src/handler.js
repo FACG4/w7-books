@@ -5,7 +5,7 @@ const insertbooks = require('./database/queries/insertbooks');
 const booksList = require('./database/queries/reserve');
 const checkuser = require('./database/queries/checkuser');
 const insertuser = require('./database/queries/insertuser');
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
 
 
 const contentType = {
@@ -35,6 +35,35 @@ const handlePublic = (res, endpoint) => {
     }
   });
 };
+
+const handlerUser = (req, res) => {
+  // console.log(req);
+  let dataUser = '';
+  req.on('data',(chunk) =>{
+    dataUser += chunk;
+  });
+  req.on('end',()=>{
+    const users = querystring.parse(dataUser);
+    const {email:email,password: password} = users;
+    checkuser.checkuser(users,(err,result)=> {
+      if(err){
+        res.writeHead(500, 'Content-Type: text/html');
+        res.end('<h1>Sorry, there was a problem of email or password</h1>');
+        console.log(err);
+      }else
+      console.log("ajjaks");{
+        res.writeHead(
+        302,{
+          'Location': '/',
+          'Set-Cookie': 'logged_in=true; HttpOnly; Max-Age=86400'
+        }
+      );
+
+       res.writeHead(302,{Location:'/userPanel'});
+      }
+    })
+  })
+}
 
 
 
@@ -148,4 +177,4 @@ const  signUp=(req,res) =>{
 
 
 
-module.exports = {handlePublic,handleInsert, handleBooklist, handleNotFound,signUp};
+module.exports = {handlePublic,handleInsert, handleBooklist, handleNotFound,signUp,handlerUser};

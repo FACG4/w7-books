@@ -5,7 +5,8 @@ const password = document.getElementById('password');
 const EmailError = document.getElementById('emailError');
 const passworderror = document.getElementById('passworderror');
 login.addEventListener('submit', (e) => {
-  e.preventDefault();
+  // console.log(e);
+  // e.preventDefault();
   const checkEmail = function() {
     if (email.validity.typeMismatch){
       displayErr(EmailError ,"please enter a valid email")
@@ -66,11 +67,11 @@ password.addEventListener("focusout", checkPw);
 
 
 
-const data = {
+const dataUser = {
   email:email.value,
   password: password.value
 }
-// console.log(data);
+console.log(data);
 
 
 // fetch('/login',(err,res)=>{

@@ -6,9 +6,18 @@ const router = (req, res) => {
   const { url: endpoint } = req;
   if (endpoint === '/') {
     handler.handlePublic(res, path.join('public', 'login.html'));
-  } 
+
+  } else if (endpoint.includes('public')) {
+    console.log(endpoint);
+
+    handler.handlePublic(res, path.join('public', 'signUp.html'));
+  }
   else if (endpoint === '/redirect') {
     handler.handlePublic(res, path.join('public', 'redirect.html'));
+
+  }else if(endpoint==='/userPanel') {
+      handler.handlePublic(res, path.join('public', 'userPanel.html'));
+
 
   }
   else if (endpoint.includes('public')) {
@@ -22,7 +31,14 @@ const router = (req, res) => {
 
     handler.signUp(req, res);
 
-  } else {
+  }
+  else if (endpoint === '/login'){
+
+    handler.handlerUser(req, res);
+
+  }
+
+  else {
     handler.handleNotFound(req, res);
   }
 };
