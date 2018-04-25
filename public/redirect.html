@@ -10,6 +10,10 @@
 </head>
 
 <body>
+    <div class="isa_success">
+        <i class="fa fa-check"></i>
+             Successfully added
+   </div>
   <form id="login" method="post">
     <div class="container">
       <h1>Online library</h1>
@@ -22,7 +26,7 @@
       <p id="emailError"> </p>
 
       <label for="psw"><b>Password</b>
-      <input  id="password" type="password" placeholder="Enter Password" name="psw"  required>
+      <input  id="password" type="password" placeholder="Enter Password" name="psw" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required>
       </label>
       <p id="passworderror"> </p>
 
@@ -35,6 +39,23 @@
 
 
 </body>
+
 <script src="/public/js/login.js"></script>
+<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+
+  window.onload = function() {
+
+  swal("Welcome!!", "You have signed up successfully", "success")
+.then( ()=> {
+  swal("Now you can logged into your accont");
+});
+
+
+};
+
+
+</script> -->
 
 </html>
