@@ -133,6 +133,7 @@ const hashPassword = (password, cb) => {
                 res.writeHead(500, 'Content-Type: text/html');
                 res.end('<h1>error in your password</h1>');
               }else{
+
              res.writeHead(302, {
               Location: '/userPanel' ,
              'Set-Cookie': `token=${token}; httpOnly`
