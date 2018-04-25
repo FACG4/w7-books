@@ -77,7 +77,7 @@ form {
 
 
   
-  /* .isa_success {
+   .isa_success {
     font-size: 30px;
     text-align: center;
     margin: 10px 0px;
@@ -90,7 +90,7 @@ form {
       margin:10px 22px;
       font-size:2em;
       vertical-align:middle;
-  } */
+  } 
 
  .isa_success, .isa_error {
     margin: 10px 0px;

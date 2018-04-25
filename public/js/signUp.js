@@ -2,7 +2,6 @@ const select = (selector) => document.querySelector(selector);
 var form = select('#signUpForm')
 
 form.addEventListener('submit',function(event){
-  event.preventDefault()
 
   var lname = select('#lname').value
   var fname= select('#fname').value
@@ -17,30 +16,36 @@ form.addEventListener('submit',function(event){
   
  if (!email) {
     message.textContent='Should enter an email address'
+    event.preventDefault();
   }
   else if (!email.match(emailRegex)) {
     message.textContent='Please enter a valid email address '
+    event.preventDefault();
   }
   else if (password.length<8) {
     message.textContent='Your password must be at least 8 characters long.'
+    event.preventDefault();
   }
   else if (!password.match(/^(?=.*[a-z]).+$/)) {
     message.textContent='Your password must contain a lowercase letter.'
+    event.preventDefault();
   }
   else if (!password.match(/^(?=.*[A-Z]).+$/)) {
     message.textContent='Your password must contain an uppercase letter.'
+    event.preventDefault();
   }
   else if (!password.match(/^(?=.*[0-9_\W]).+$/)) {
     message.textContent='Your password must contain a number or special character.'
+    event.preventDefault();
   }
 
   else if (password!=cPassword) {
-    message.textContent='Opps password not matching'
+    message.textContent='Opps password not matching';
+    event.preventDefault();
+    
   }
   else{
     select('#isa_error').classList.remove("isa_error");
-
-
   }
 
 })
