@@ -19,14 +19,16 @@ const router = (req, res) => {
 
   } else if (endpoint.includes('public')) {
     console.log(endpoint);
-    
+
     handler.handlePublic(res, path.join('public', 'signUp.html'));
+
+  }else if(endpoint==='/userPanel') {
+      handler.handlePublic(res, path.join('public', 'userPanel.html'));
+
 
   }
     else if (filesInFolder.includes(endpoint)) {
-      console.log('fffffffff',endpoint);
-      
-    handler.handlePublic(res, path.join('public',endpoint));
+  handler.handlePublic(res, path.join('public',endpoint));
   }  else if (endpoint === '/insert') {
     handler.handleInsert(req, res);
   } else if (endpoint === '/booksList') {
@@ -36,7 +38,14 @@ const router = (req, res) => {
 
     handler.signUp(req, res);
 
-  } else {
+  }
+  else if (endpoint === '/login'){
+
+    handler.handlerUser(req, res);
+
+  }
+
+  else {
     handler.handleNotFound(req, res);
   }
 };
