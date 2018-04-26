@@ -19,7 +19,7 @@ body {
     padding-bottom: 20px;
     padding-top: 30px;
     text-align: center;
-    font-size: 60px;
+    font-size: 50px;
     color:  #5b380b;
     font-family: 'Lobster', cursive;
   }
@@ -73,3 +73,16 @@ body {
   li:nth-child(even) {
     background-color: #f9e8d2
   }
+
+  .logout {
+    color:#0000FF;
+    font-weight: bold;
+    font-size: 20px;
+    float: right;
+    padding-right: 30px;
+ }
+
+ #userName {
+  color:#0000FF;
+   font-size:20px;
+ }

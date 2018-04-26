@@ -3,7 +3,7 @@ const querystring = require('querystring');
 const path = require('path');
 const insertbooks = require('./database/queries/insertbooks');
 const booksList = require('./database/queries/reserve');
-const checkuser = require('./database/queries/checkuser');
+const checkuser = require('./database/queries/selectuser.js');
 const insertuser = require('./database/queries/insertuser');
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
@@ -25,9 +25,7 @@ const handlePublic = (res, endpoint) => {
   fs.readFile(path.join(__dirname, '..', endpoint), (error, data) => {
     if (error) {
       res.writeHead(500, 'Content-Type:text/html');
-      res.end(
-        '<h1>Sorry, there was a problem loading the homepage</h1>'
-      );
+      res.end('<h1>Sorry, there was a problem loading the homepage</h1>');
     } else {
       res.writeHead(200, {
         'Content-Type': contentType[extention],
@@ -40,7 +38,7 @@ const handlePublic = (res, endpoint) => {
 const getName  = (req,cb) => {
   
   const cookie = parse(req.headers.cookie);  
-    jwt.verify(cookie.token,'inass', (err, token) => {
+    jwt.verify(cookie.token,process.env.JWT_KEY, (err, token) => {
       if(err) {
         console.log('error');
       } else {
@@ -53,7 +51,7 @@ const getName  = (req,cb) => {
 const handleUserName = (req,res, endpoint) => {  
   if (req.headers.cookie) {
     const name = parse(req.headers.cookie);
-    jwt.verify(name.token,'inass', (err, token) => {
+    jwt.verify(name.token,process.env.JWT_KEY, (err, token) => {
       if(err) {
         res.writeHead(403, 'Content-Type: text/html');
         res.end('<h1>Go Away!!</h1>');
@@ -74,11 +72,7 @@ const handleInsert = (req, res) => {
   });
   req.on('end', () => {
     const book = querystring.parse(data);
-    const {
-      name: book_name,
-      year,
-      author
-    } = book;
+    const {name: book_name,year, author} = book;
     insertbooks.insertBooks(book_name, year, author, (err, result) => {
       if (err) {
         res.writeHead(500, 'Content-Type: text/html');
@@ -98,7 +92,7 @@ const handleBooklist = (req, res) => {
       res.writeHead(500, 'Content-Type:text/html');
       res.end('<h1>Sorry, there was a problem getting the users<h1>');
     } else {
-      result[0].username = name;
+      result[0].username ='Welcome!'+' '+ name;
       
       let output = JSON.stringify(result);
       res.writeHead(200, {
@@ -149,7 +143,7 @@ const handlerUser = (req, res) => {
           userId: result[0].id,
           username: result[0].first_name +' '+result[0].last_name 
         }
-        const token = jwt.sign(userData, 'inass')
+        const token = jwt.sign(userData, process.env.JWT_KEY)
         bcrypt.compare(psw, result[0].password, (err, resBoolean) => {
 
           if (!resBoolean) {

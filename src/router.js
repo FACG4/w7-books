@@ -3,7 +3,9 @@ const handler = require('./handler');
 const fs = require('fs');
 
 const router = (req, res) => {
-  const { url: endpoint } = req;
+  const {
+    url: endpoint
+  } = req;
   if (endpoint === '/') {
     if(req.headers.cookie) {
       res.writeHead(302, {location: '/userPanel'});
@@ -20,10 +22,9 @@ const router = (req, res) => {
   else if (endpoint === '/userPanel') {
     handler.handleUserName(req,res, path.join('public', 'userPanel.html'));
 
-  }
-  else if (endpoint === '/login'){
+  } else if (endpoint === '/login') {
 
-        handler.handlerUser(req, res);
+    handler.handlerUser(req, res);
 
   } 
 
@@ -31,16 +32,13 @@ const router = (req, res) => {
 
     handler.logout(req, res);
 
-}
-
-  else if (endpoint.includes('public')) {
-    handler.handlePublic(res, path.join('public','..',endpoint));
+  } else if (endpoint.includes('public')) {
+    handler.handlePublic(res, path.join('public', '..', endpoint));
   } else if (endpoint === '/insert') {
     handler.handleInsert(req, res);
   } else if (endpoint === '/booksList') {
     handler.handleBooklist(req, res);
-  }
-  else if (endpoint === '/signUp'){
+  } else if (endpoint === '/signUp') {
 
     handler.signUp(req, res);
 
