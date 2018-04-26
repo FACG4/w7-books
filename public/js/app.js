@@ -5,7 +5,7 @@ const request =  (method, url, payload, cb) => {
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
+      if (xhr.status === 200) {        
         cb(null, JSON.parse(xhr.responseText));
       } else {
         cb(true);
@@ -21,6 +21,8 @@ request('GET', '/booksList', null, (err, books) => {
   if(err) {
     throw new Error(err);
   } else {
+    const name = document.getElementById('userName');    
+    name.textContent = books[0].username;
     const container = document.getElementById('reserveBook');
     const ul = document.createElement('ul');
     const head = document.createElement('li');
@@ -33,10 +35,9 @@ request('GET', '/booksList', null, (err, books) => {
     auth.textContent = "Author";
     year.textContent = "Year";
     head.appendChild(bookNam);
-  head.appendChild(auth);
-  head.appendChild(year);
-  ul.appendChild(head);
-
+    head.appendChild(auth);
+    head.appendChild(year);
+    ul.appendChild(head);
     books.forEach((book) => {
       const {book_name, author , year} = book;
       const li = document.createElement('li');

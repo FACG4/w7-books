@@ -7,18 +7,28 @@ const router = (req, res) => {
     url: endpoint
   } = req;
   if (endpoint === '/') {
-    handler.handlePublic(res, path.join('public', 'login.html'));
-  } else if (endpoint === '/redirect') {
+    if(req.headers.cookie) {
+      res.writeHead(302, {location: '/userPanel'});
+      res.end()
+    } else {
+
+      handler.handlePublic(res, path.join('public', 'login.html'));
+    }
+  }  
+  else if (endpoint === '/redirect') {
     handler.handlePublic(res, path.join('public', 'redirect.html'));
 
-  } else if (endpoint === '/userPanel') {
-    handler.handlePublic(res, path.join('public', 'userPanel.html'));
+  }
+  else if (endpoint === '/userPanel') {
+    handler.handleUserName(req,res, path.join('public', 'userPanel.html'));
 
   } else if (endpoint === '/login') {
 
     handler.handlerUser(req, res);
 
-  } else if (endpoint === '/logout') {
+  } 
+
+  else if (endpoint === '/logout'){
 
     handler.logout(req, res);
 
