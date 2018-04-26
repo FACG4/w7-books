@@ -43,12 +43,16 @@ request('GET', '/booksList', null, (err, books) => {
       const bookNameLi = document.createElement('span');
       const authorLi = document.createElement('span');
       const yearLi = document.createElement('span');
+      const button = document.createElement('button');
+
       bookNameLi.textContent = book_name;
       authorLi.textContent = author;
       yearLi.textContent = year;
       li.appendChild(bookNameLi);
       li.appendChild(authorLi);
       li.appendChild(yearLi);
+      li.appendChild(button);
+
       ul.appendChild(li);
     })
     container.replaceChild(ul, container.firstElementChild)

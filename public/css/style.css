@@ -1,10 +1,14 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
+
+
 }
 
 * {
-  box-sizing: border-box
+  box-sizing: border-box;
 }
+
+
 
 input[type=text],
 input[type=email],
@@ -31,7 +35,7 @@ hr {
 
 
 button {
-  background-color:#0000FF;
+  background-color:#ff0054;
   color: white;
   padding: 12px 20px;
   margin: 2px;
@@ -40,14 +44,14 @@ button {
   width: 50%;
   text-align: center;
   margin: 0 auto;
-  display: flex; 
-  justify-content: center; 
+  display: flex;
+  justify-content: center;
   font-weight: bold
 }
 
 button:hover {
   opacity: 0.8;
-  
+
 }
 
 
@@ -73,10 +77,11 @@ form {
 
 .title {
   text-align: center
+  color:#ff0054;
 }
 
 
-  
+
    .isa_success {
     font-size: 30px;
     text-align: center;
@@ -85,33 +90,32 @@ form {
       color: #4F8A10;
       background-color: #DFF2BF;
   }
-  
+
   .isa_success i {
       margin:10px 22px;
       font-size:2em;
       vertical-align:middle;
-  } 
+  }
 
  .isa_success, .isa_error {
     margin: 10px 0px;
     padding:12px;
-     
+
     }
-  
+
 
     .isa_error {
         color: #D8000C;
         background-color: #FFD2D2;
         text-align: center
     }
-    
+
     .isa_success i,  .isa_error i {
         margin:10px 22px;
         font-size:2em;
         vertical-align:middle;
     }
-
     h1{
-      color:#0000FF;
-      text-align:center
+      text-align: center;
+      color: #ff0054;
     }
