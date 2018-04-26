@@ -29,6 +29,7 @@ Next open psql/pgcli in terminal and connect to your test database: \c [test_dat
 
 Next you will run the db_build.sql file to create the schema and populate your test database with data: \i [full_path_to_db_build.sql]
 
+[I'm an inline-style link](https://w7-books.herokuapp.com/)
 
 
 
