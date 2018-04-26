@@ -3,37 +3,32 @@ const handler = require('./handler');
 const fs = require('fs');
 
 const router = (req, res) => {
-  const { url: endpoint } = req;
+  const {
+    url: endpoint
+  } = req;
   if (endpoint === '/') {
     handler.handlePublic(res, path.join('public', 'login.html'));
-  }  
-  else if (endpoint === '/redirect') {
+  } else if (endpoint === '/redirect') {
     handler.handlePublic(res, path.join('public', 'redirect.html'));
 
-  }
-  else if (endpoint === '/userPanel') {
+  } else if (endpoint === '/userPanel') {
     handler.handlePublic(res, path.join('public', 'userPanel.html'));
 
-  }
-  else if (endpoint === '/login'){
+  } else if (endpoint === '/login') {
 
-        handler.handlerUser(req, res);
+    handler.handlerUser(req, res);
 
-  }
-  else if (endpoint === '/logout'){
+  } else if (endpoint === '/logout') {
 
     handler.logout(req, res);
 
-}
-
-  else if (endpoint.includes('public')) {
-    handler.handlePublic(res, path.join('public','..',endpoint));
+  } else if (endpoint.includes('public')) {
+    handler.handlePublic(res, path.join('public', '..', endpoint));
   } else if (endpoint === '/insert') {
     handler.handleInsert(req, res);
   } else if (endpoint === '/booksList') {
     handler.handleBooklist(req, res);
-  }
-  else if (endpoint === '/signUp'){
+  } else if (endpoint === '/signUp') {
 
     handler.signUp(req, res);
 

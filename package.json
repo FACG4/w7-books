@@ -21,6 +21,7 @@
     "bcryptjs": "^2.4.3",
     "cookie": "^0.3.1",
     "env2": "^2.2.0",
+    "eslint": "^4.19.1",
     "jsonwebtoken": "^8.2.1",
     "pg": "^7.4.1",
     "sweetalert2": "^7.19.1"

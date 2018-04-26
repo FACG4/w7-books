@@ -3,7 +3,7 @@ const querystring = require('querystring');
 const path = require('path');
 const insertbooks = require('./database/queries/insertbooks');
 const booksList = require('./database/queries/reserve');
-const checkuser = require('./database/queries/checkuser');
+const checkuser = require('./database/queries/selectuser.js');
 const insertuser = require('./database/queries/insertuser');
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
@@ -25,10 +25,7 @@ const handlePublic = (res, endpoint) => {
   fs.readFile(path.join(__dirname, '..', endpoint), (error, data) => {
     if (error) {
       res.writeHead(500, 'Content-Type:text/html');
-      res.end(
-        '<h1>Sorry, there was a problem loading the homepage</h1>'
-      );
-      console.log(error);
+      res.end('<h1>Sorry, there was a problem loading the homepage</h1>');
     } else {
       res.writeHead(200, {
         'Content-Type': contentType[extention],
@@ -47,12 +44,11 @@ const handleInsert = (req, res) => {
   });
   req.on('end', () => {
     const book = querystring.parse(data);
-    const {name:book_name, year, author} = book;
-    insertbooks.insertBooks(book_name, year, author, (err, result)=> {
+    const {name: book_name,year, author} = book;
+    insertbooks.insertBooks(book_name, year, author, (err, result) => {
       if (err) {
         res.writeHead(500, 'Content-Type: text/html');
         res.end('<h1>Sorry, there was a problem adding that book</h1>');
-        console.log(err);
       } else {
         res.writeHead(200, 'Content-Type: text/html');
         res.end('<h1>successfully added</h1>');
@@ -66,10 +62,11 @@ const handleBooklist = (req, res) => {
     if (err) {
       res.writeHead(500, 'Content-Type:text/html');
       res.end('<h1>Sorry, there was a problem getting the users<h1>');
-      console.log(err);
     } else {
       let output = JSON.stringify(result);
-      res.writeHead(200, { 'content-type': 'application/json' });
+      res.writeHead(200, {
+        'content-type': 'application/json'
+      });
       res.end(output);
     }
   });
@@ -82,138 +79,120 @@ const handleNotFound = (req, res) => {
 
 
 
-
-
 const hashPassword = (password, cb) => {
   bcrypt.genSalt(10, function(err, salt) {
-     if(err) {
-       cb(err)
-      } else {
+    if (err) {
+      cb(err)
+    } else {
 
-        bcrypt.hash(password, salt,cb)
+      bcrypt.hash(password, salt, cb)
 
-      }
-    });
-   };
-
-
-
-
-   const handlerUser = (req, res) => {
-    let data = '';
-    req.on('data', (chunk) => {
-      data += chunk;
-    });
-    req.on('end', () => {
-      const users = querystring.parse(data);
-      const {email,psw} = users;
-      
-      checkuser.checkuser(email,psw, (err, result)=> {
-             
-        if (err) {
-          res.writeHead(500, 'Content-Type: text/html');
-          res.end('<h1>Sorry, there was a problem adding that book</h1>');
-         } else if (result.length === 0)
-         {
-           
-          res.end('the user not registerd');
-
-           }
-           else
-           {
-
-            const userData = {
-              userId: result[0].id,
-              username: ` first name ${result[0].first_name} last name ${result[0].last_name} `
-            }
-            const token = jwt.sign(userData,'inass')
-            bcrypt.compare(psw,result[0].password,(err,resBoolean)=>{
-              
-              if (!resBoolean) {
-                res.writeHead(500, 'Content-Type: text/html');
-                res.end('<h1>error in your password</h1>');
-              }else{
-                
-             res.writeHead(302, {
-              Location: '/userPanel' ,
-             'Set-Cookie': `token=${token}; httpOnly`
-               });
-              res.end();
-
-          
-
-              }
-              
-            }
-          );
-           }
-      
-        
-      });
-    });
-  }
-
-
-
-  const logout = (req, res) => {
-    res.writeHead(302, {
-      Location: '/',
-      'Set-Cookie': `token=0; Max-Age=0`,
-    });
-    res.end();
-  };
-
-  
-const  signUp=(req,res) =>{
-  let data='';
-  req.on('data',(chunk)=>{
-    data += chunk;
-
+    }
   });
-  req.on('end',()=>{
-    const users=querystring.parse(data);
-    const{fname,lname,email ,password}=users;
-
- hashPassword(password,(err,hashedPassword) =>{
-  if (err){
-    console.error("Error in Hashing",err);
-  }else {
+};
 
 
-    insertuser.insertUsers(fname,lname,email ,hashedPassword, (err, result)=> {
+
+const handlerUser = (req, res) => {
+  let data = '';
+  req.on('data', (chunk) => {
+    data += chunk;
+  });
+  req.on('end', () => {
+    const users = querystring.parse(data);
+    const {email,psw} = users;
+
+    checkuser.checkuser(email, psw, (err, result) => {
 
       if (err) {
-
         res.writeHead(500, 'Content-Type: text/html');
-        res.end('<h1>Sorry, there was a problem adding that user</h1>');
-        console.log(err);
+        res.end('<h1>Sorry, there was a problem adding that book</h1>');
+      } else if (result.length === 0) {
+
+        res.end('the user not registerd');
+
       } else {
 
-          res.writeHead(302, {
-          Location: '/' 
-           });
-          res.end();
-     }
+        const userData = {
+          userId: result[0].id,
+          username: ` first name ${result[0].first_name} last name ${result[0].last_name} `
+        }
+        const token = jwt.sign(userData, process.env.JWT_KEY)
+        bcrypt.compare(psw, result[0].password, (err, resBoolean) => {
+
+          if (!resBoolean) {
+            res.writeHead(500, 'Content-Type: text/html');
+            res.end('<h1>error in your password</h1>');
+          } else {
+
+            res.writeHead(302, {
+              Location: '/userPanel',
+              'Set-Cookie': `token=${token}; httpOnly`
+            });
+            res.end();
+          }
+
+        });
+      }
     });
-
-
-  }
-
- })
-
-
-
-
-
-
-
-})
+  });
 }
 
 
 
+const logout = (req, res) => {
+  res.writeHead(302, {
+    Location: '/',
+    'Set-Cookie': `token=0; Max-Age=0`,
+  });
+  res.end();
+};
+
+
+const signUp = (req, res) => {
+  let data = '';
+  req.on('data', (chunk) => {
+    data += chunk;
+
+  });
+  req.on('end', () => {
+    const users = querystring.parse(data);
+    const {fname,lname,email,password} = users;
+
+    hashPassword(password, (err, hashedPassword) => {
+      if (err) {
+        console.error("Error in Hashing", err);
+      } else {
+
+
+        insertuser.insertUsers(fname, lname, email, hashedPassword, (err, result) => {
+
+          if (err) {
+
+            res.writeHead(500, 'Content-Type: text/html');
+            res.end('<h1>Sorry, there was a problem adding that user</h1>');
+          } else {
+
+            res.writeHead(302, {
+              Location: '/'
+            });
+            res.end();
+          }
+        });
+      }
+
+    })
+  })
+}
 
 
 
-
-module.exports = {handlePublic,handleInsert, handleBooklist, logout,handleNotFound,signUp,handlerUser};
+module.exports = {
+  handlePublic,
+  handleInsert,
+  handleBooklist,
+  logout,
+  handleNotFound,
+  signUp,
+  handlerUser
+};
